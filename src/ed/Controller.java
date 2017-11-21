@@ -72,4 +72,8 @@ public class Controller {
         System.out.println("Enter the Player ID to remove it");
         playersMap.remove(scan.nextInt());
     }
+
+    public Map<Integer, Players> printMap() {
+        return playersMap;
+    }
 }
