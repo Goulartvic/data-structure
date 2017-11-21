@@ -18,9 +18,9 @@ public class Players {
     @Override
     public String toString() {
         return "Players{" +
-                "salary=" + salary +
+                "names=" + names +
                 ", teams=" + teams +
-                ", names=" + names +
+                ", salary=" + salary +
                 '}';
     }
 
