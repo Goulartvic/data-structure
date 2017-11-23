@@ -10,17 +10,14 @@ public class Controller {
 
     Map<Integer, Players> playersMap = new TreeMap<>();
     int index = 3;
-    int[] salaryPattern = new int[]{
-            5000, 8000, 10000, 15000, 20000
-    };
 
     public void mapPreview() {
         Map<Integer, String> name1 = new TreeMap<>();
         name1.put(0,"Matheus");
         Map<Integer, String> team1 = new TreeMap<>();
         team1.put(0,"Palmeiras");
-        Map<Integer, Integer> salary1 = new TreeMap<>();
-        salary1.put(0, salaryPattern[2]);
+        Map<Integer, Double> salary1 = new TreeMap<>();
+        salary1.put(0, 10000.00);
         Players p1 = new Players(name1, team1, salary1);
         playersMap.put(0, p1);
 
@@ -28,8 +25,8 @@ public class Controller {
         name2.put(1,"Gabriel");
         Map<Integer, String> team2 = new TreeMap<>();
         team2.put(1,"Vasco");
-        Map<Integer, Integer> salary2 = new TreeMap<>();
-        salary2.put(1, salaryPattern[1]);
+        Map<Integer, Double> salary2 = new TreeMap<>();
+        salary2.put(1, 8000.00);
         Players p2 = new Players(name2, team2, salary2);
         playersMap.put(1, p2);
 
@@ -37,8 +34,8 @@ public class Controller {
         name3.put(2,"Richard");
         Map<Integer, String> team3 = new TreeMap<>();
         team3.put(2,"Internacional");
-        Map<Integer, Integer> salary3 = new TreeMap<>();
-        salary3.put(2, salaryPattern[3]);
+        Map<Integer, Double> salary3 = new TreeMap<>();
+        salary3.put(2, 15000.00);
         Players p3 = new Players(name3, team3, salary3);
         playersMap.put(2, p3);
     }
@@ -58,30 +55,12 @@ public class Controller {
         String team = scan.next();
         insertTeam.put(idTeam, team);
 
-        Map<Integer, Integer> insertSalary = new TreeMap<>();
+        Map<Integer, Double> insertSalary = new TreeMap<>();
         System.out.println("Insert a Salary ID");
         int idSalary = scan.nextInt();
-        System.out.println("Choose a Salary: 1-$5000, 2-$8000, 3-$10000, 4-$15000, 5-$20000 ");
-        int arrayIndex = scan.nextInt();
-        switch (arrayIndex) {
-            case 1:
-                insertSalary.put(idSalary, salaryPattern[0]);
-                break;
-            case 2:
-                insertSalary.put(idSalary, salaryPattern[1]);
-                break;
-            case 3:
-                insertSalary.put(idSalary, salaryPattern[2]);
-                break;
-            case 4:
-                insertSalary.put(idSalary, salaryPattern[3]);
-                break;
-            case 5:
-                insertSalary.put(idSalary, salaryPattern[4]);
-                break;
-            default:
-                System.out.println("This is not a valid salary");
-        }
+        System.out.println("Insert a Player Salary");
+        double salary = scan.nextDouble();
+        insertSalary.put(idSalary, salary);
 
         Players insertPlayer = new Players(insertName, insertTeam, insertSalary);
 
