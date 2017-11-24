@@ -1,5 +1,6 @@
 package ed;
 
+import java.lang.management.PlatformLoggingMXBean;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
@@ -46,26 +47,20 @@ public class Controller {
 
     public void insertPlayers() {
         Map<Integer, String> insertName = new TreeMap<>();
-        System.out.println("Insert a Player ID");
-        int idName = scan.nextInt();
         System.out.println("Insert a Player Name");
         String name = scan.next();
-        insertName.put(idName, name);
+        insertName.put(index, name);
 
         Map<Integer, String> insertTeam = new TreeMap<>();
-        System.out.println("Insert a Team ID");
-        int idTeam = scan.nextInt();
         System.out.println("Insert a Team Name");
         String team = scan.next();
-        insertTeam.put(idTeam, team);
+        insertTeam.put(index, team);
 
         Map<Integer, String> insertSalary = new TreeMap<>();
-        System.out.println("Insert a Salary ID");
-        int idSalary = scan.nextInt();
         System.out.println("Choose a Salary: 1-$5000, 2-$8000, 3-$10000, 4-$15000, 5-$20000 ");
         int arrayIndex = scan.nextInt();
 
-        insertSalary.put(idSalary, salaryPattern[arrayIndex - 1]);
+        insertSalary.put(index, salaryPattern[arrayIndex - 1]);
 
         Players insertPlayer = new Players(insertName, insertTeam, insertSalary);
 
@@ -129,5 +124,65 @@ public class Controller {
                 ));
 
         return mapFilterBySalary;
+    }
+
+    public Map<Integer, Players> filterByNameAndTeam() {
+        System.out.println("Insert a Player Name");
+        final String name = scan.next();
+
+        System.out.println("Insert a Player Team");
+        final String team = scan.next();
+
+        Map<Integer, Players> mapFilterByNameAndTeam;
+
+        mapFilterByNameAndTeam = playersMap.entrySet()
+                .stream()
+                    .filter(o -> o.getValue().getNames().get(o.getKey()).equals(name)
+                        && o.getValue().getTeams().get(o.getKey()).equals(team))
+                            .collect(Collectors.toMap(
+                                    Map.Entry::getKey, Map.Entry::getValue
+                            ));
+
+        return mapFilterByNameAndTeam;
+    }
+
+    public Map<Integer, Players> filterByNameAndSalary() {
+        System.out.println("Insert a Player Name");
+        final String name = scan.next();
+
+        System.out.println("Choose a Salary: 1-$5000, 2-$8000, 3-$10000, 4-$15000, 5-$20000");
+        int salaryIndex = scan.nextInt();
+
+        Map<Integer, Players> mapFilterByNameAndSalary;
+
+        mapFilterByNameAndSalary = playersMap.entrySet()
+                .stream()
+                    .filter(o -> o.getValue().getNames().get(o.getKey()).equals(name)
+                            && o.getValue().getSalary().get(o.getKey()).equals(salaryPattern[salaryIndex - 1]))
+                                .collect(Collectors.toMap(
+                                        Map.Entry::getKey, Map.Entry::getValue
+                                ));
+
+        return mapFilterByNameAndSalary;
+    }
+
+    public Map<Integer, Players> filterByTeamAndSalary() {
+        System.out.println("Insert a Player Team");
+        final String team = scan.next();
+
+        System.out.println("Choose a Salary: 1-$5000, 2-$8000, 3-$10000, 4-$15000, 5-$20000");
+        int salaryIndex = scan.nextInt();
+
+        Map<Integer, Players> mapFilterByTeamAndSalary;
+
+        mapFilterByTeamAndSalary = playersMap.entrySet()
+                .stream()
+                .filter(o -> o.getValue().getTeams().get(o.getKey()).equals(team)
+                        && o.getValue().getSalary().get(o.getKey()).equals(salaryPattern[salaryIndex - 1]))
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey, Map.Entry::getValue
+                ));
+
+        return mapFilterByTeamAndSalary;
     }
 }
